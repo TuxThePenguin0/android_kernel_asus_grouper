@@ -1362,13 +1362,13 @@ static int fmeter_getrate(struct fmeter *fmp)
 	return val;
 }
 
-/* Called by cgroups to determine if a cpuset is usable; cgroup_mutex held */
+/* Called by cgroups to determine if a cpuset is usable; cgroup_mutex held
 static int cpuset_can_attach(struct cgroup_subsys *ss, struct cgroup *cont,
 			     struct task_struct *tsk)
 {
 	struct cpuset *cs = cgroup_cs(cont);
 
-	if ((current != task) && (!capable(CAP_SYS_ADMIN))) {
+	if ((current != tsk) && (!capable(CAP_SYS_ADMIN))) {
 		const struct cred *cred = current_cred(), *tcred;
 
 		if (cred->euid != tcred->uid && cred->euid != tcred->suid)
@@ -1385,13 +1385,13 @@ static int cpuset_can_attach(struct cgroup_subsys *ss, struct cgroup *cont,
 	 * applicable for such threads.  This prevents checking for success of
 	 * set_cpus_allowed_ptr() on all attached tasks before cpus_allowed may
 	 * be changed.
-	 */
+	 
 	if (tsk->flags & PF_THREAD_BOUND)
 		return -EINVAL;
 
 	return 0;
 }
-
+*/
 static int cpuset_can_attach_task(struct cgroup *cgrp, struct task_struct *task)
 {
 	return security_task_setscheduler(task);
